@@ -2,7 +2,7 @@
 require(tcltk) # open prompt for writing .csv file with filled data
 require(zoo) # time series fill functions
 
-stationData <- read.csv(file.choose(), stringsAsFactors = FALSE)
+stationData <- read.csv(file.choose(), stringsAsFactors = FALSE) # the file must have first column as date an the remaining columns as different time series
 zooStationData <- zoo(stationData[2:length(stationData[1,])],as.Date(stationData$date, format = "%m/%d/%Y")) # must create zoo obect for filling algorith
 filledZoo = na.approx(zooStationData, maxgap = 90, na.rm = FALSE) # fill in data with linear interpolation
 filledZoo = na.locf(filledZoo, maxgap = 10, fromLast = TRUE) # fill in data with nearest real value from back to forward to fill values at beggining
